@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{# 页面标题 #}
+{% block title %}
+    {{ movie.title}}
+
+{% endblock %}
+{# 页面内容 #}
+{% block content %}
+
+       <div class="container">
+    <div class="col-sm-2">
+         {% for movie in article_list %}
+              <div class="list-group side-bar" >
+            <a class="list-group-item" id="aa" href="{%  url 'movie_detail' movie.pk %}">{{ movie.title }}</a>
+        </div>
+           {% endfor %}
+    </div>
+    <div class="col-sm-7">
+        <div class="post-list">
+            <div class="post-list-item">
+                <div class="col-xs-5">
+                      <img class="post-object" src="{{ movie.poster }}" />
+                </div>
+                <div class="col-xs-7">
+                    <a href="#">
+                        <div class="post-heading">{{ movie.title }}</div>
+                    </a>
+
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur aut doloribus optio
+                        eligendi id expedita recusandae...</p> -->
+                    <p class="text-muted">
+                      <p>
+                           id：{{ movie.id}}
+                        </p>
+                    <p>
+                       score：{{ movie.score}}
+                        </p>
+                    <p>
+                       duration：{{ movie.duration}}
+                        </p>
+                        <p>
+                            director：{{ movie.director}}
+                        </p>
+                        <p>
+                       star：{{ movie.stars}}
+                        </p>
+                        <p>
+                       story：“{{ movie.story }}”
+                        </p>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">MoviePal Recommendation</h3>
+          </div>
+          <div class="panel-body">
+              {% for p in pal%}
+              <div><span>
+                  <a href="http://127.0.0.1:8080/" style="float:left">{{p.username}}</a>
+                  <p style="float:right">score: {{p.score}}</p>
+                </span><br>
+              </div>
+                  <p>
+                      <span class="short">{{p.review}}...</span>
+                  </p>
+              {% endfor %}
+
+          </div>
+        </div>
+        <div class="comment-item " data-cid="2776266043">
+    <h2 class="panel-title">Review</h2><hr>
+    {% for re in review%}
+    <div class="comment">
+        <div>
+        <h5>
+            <span class="comment-info">
+                <p style="float:left">{{re.username}}</p>
+                <p style="float:right">score: {{re.score}}</p>
+                <br>
+            </span>
+        </h5></div>
+        <div>
+        <p class=" comment-content" style="float:left">
+                <span class="short">{{re.review}}...</span>
+        </p></div><br>
+    </div>
+    {% endfor %}
+        </div>
+    </div>
+</div>
+
+{#    <a href="/movie/{{movie.pk}}">{{ movie.name}}</a>#}
+
+
+
+     {% if data %}
+    <ul id="pages" class="pagination pagination-sm pagination-xs" >
+        {% if data.first %}
+        <li><a href="?page=1">1</a></li>
+        {% endif %}
+        {% if data.left %}
+        {% if data.left_has_more %}
+        <li><span>...</span></li>
+        {% endif %}
+        {% for i in data.left %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% endif %}
+        <li class="active"><a href="?page={{data.page}}">{{data.page}}</a></li>
+        {% if data.right %}
+        {% for i in data.right %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% if data.right_has_more %}
+        <li><span>...</span></li>
+        {% endif %}
+        {% endif %}
+        {% if data.last %}
+        <li><a href="?page={{data.total_pages}}">{{data.total_pages}}</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+{% endblock %}

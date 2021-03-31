@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+   注册
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="form-container">
+    <h1>log in <small>No account?<a href="register.html">register</a></small></h1>
+    <form method="post" action="{% url 'loginCheck' %}">
+         {% csrf_token %}
+      <div class="form-group">
+        <label>name/email/phone number</label>
+        <input type="text" class="form-control" name="username">
+      </div>
+      <div class="form-group">
+        <label>password</label>
+        <input type="password" class="form-control" name="password">
+      </div>
+      <p>forget password？</p>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">login</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+   我的网站|搜索
+{% endblock %}
+{% block content %}
+   <div class="container">
+   <div class="row">
+       <div class="col-md-8 col-md-offset-2">
+           {% if search_word == ''%}
+                <h3>You did not search anything.</h3>
+               <p>Try typing something,for example：Five Feet Apart</p>
+           {% else %}
+               <h3>Search“{{ search_word }}”，{{ search_movies_count }} results are found</h3>
+               <hr>
+               {%  for movie in search_movies %}
+                   <a href="{%  url 'movie_detail' movie.pk %}">
+                        <h4>{{ movie.title }}</h4>
+                   </a>
+               {% empty %}
+                   <p>Try another keyword.</p>
+               {% endfor %}
+           {% endif %}
+       </div>
+   </div>
+   </div>
+{% endblock %}
